@@ -22,18 +22,21 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
         // Inicializar productos solo si no hay ninguno
         if (productRepository.count() == 0) {
-            System.out.println("Inicializando productos con stock inicial...");
+            System.out.println("Base de datos vacía - Inicializando productos con stock inicial...");
 
             Product laptop = new Product(null, "Laptop", 10);
             Product mouse = new Product(null, "Mouse", 20);
             Product teclado = new Product(null, "Teclado", 15);
 
             productRepository.saveAll(Arrays.asList(laptop, mouse, teclado));
-
-            System.out.println("INVENTARIO INICIAL:");
-            for (Product product : productRepository.findAll()) {
-                System.out.println(product.getName() + ": " + product.getStock() + " unidades");
-            }
         }
+
+        // Mostrar inventario actual al iniciar
+        System.out.println("------------------------------------------");
+        System.out.println("INVENTARIO ACTUAL AL INICIAR:");
+        for (Product product : productRepository.findAll()) {
+            System.out.println(product.getName() + ": " + product.getStock() + " unidades");
+        }
+        System.out.println("------------------------------------------");
     }
 }
